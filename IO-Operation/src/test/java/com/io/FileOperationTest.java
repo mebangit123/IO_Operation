@@ -11,7 +11,7 @@ import org.junit.Test;
 
 
 public class FileOperationTest {
-	private String HOME = System.getProperty("user.home");
+	private String HOME = "D:/Git/IO_Operation/IO-Operation/watchTest";
 	private static String PLAY_WITH_NIO = "TempPlayGround";
 	@Test
 	public void givenPathWhenCheckedThenConfirm() throws IOException {
@@ -36,6 +36,11 @@ public class FileOperationTest {
 		Files.newDirectoryStream(playPath, path -> path.toFile().isFile() &&
 												   path.toString().startsWith("temp"))
 										  .forEach(System.out::println);
+	}
+	public void givenADirectoryWhenWatchedListsAllTheActivities() throws IOException {
+		Path dir = Paths.get(HOME);
+		Files.list(dir).filter(Files::isRegularFile).forEach(System.out::println);
+		new JavaWatchServiceExample(dir).processEvents();
 	}
 	
 }
